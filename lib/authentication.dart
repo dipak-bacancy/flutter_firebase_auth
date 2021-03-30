@@ -35,7 +35,3 @@ class AuthenticationProvider {
     print('signout');
   }
 }
-
-/* 
-    Facebook key hash  :      4juqxR/bfCEhOEDslBTwAePpz74=
- */
