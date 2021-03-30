@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_firebase_auth/authentication.dart';
+import 'package:flutter_firebase_auth/home.dart';
+import 'package:flutter_firebase_auth/signup.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -13,7 +15,9 @@ class Login extends StatelessWidget {
           // logo
           Column(
             children: [
-              FlutterLogo(),
+              FlutterLogo(
+                size: 55,
+              ),
               SizedBox(height: 50),
               Text(
                 'Welcome back!',
@@ -31,23 +35,21 @@ class Login extends StatelessWidget {
             child: LoginForm(),
           ),
 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          SizedBox(height: 20),
+
+          Row(
             children: <Widget>[
-              SizedBox(height: 20),
-              Row(
-                children: <Widget>[
-                  Text('New here',
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/signup');
-                    },
-                    child: Text('Get Registered Now!!',
-                        style: TextStyle(fontSize: 20, color: Colors.blue)),
-                  )
-                ],
+              SizedBox(width: 30),
+              Text('New here ? ',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              GestureDetector(
+                onTap: () {
+                  // Navigator.pushNamed(context, '/signup');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Signup()));
+                },
+                child: Text('Get Registered Now!!',
+                    style: TextStyle(fontSize: 20, color: Colors.blue)),
               )
             ],
           ),
@@ -156,7 +158,7 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
 
-          SizedBox(height: 10),
+          SizedBox(height: 30),
 
           SizedBox(
             height: 54,
@@ -175,7 +177,8 @@ class _LoginFormState extends State<LoginForm> {
                       .signIn(email: email, password: password)
                       .then((result) {
                     if (result == null) {
-                      Navigator.pushReplacementNamed(context, '/');
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Home()));
                     } else {
                       Scaffold.of(context).showSnackBar(SnackBar(
                         content: Text(
