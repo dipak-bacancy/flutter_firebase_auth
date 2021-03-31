@@ -173,7 +173,7 @@ class _LoginFormState extends State<LoginForm> {
 
                   _formKey.currentState.save();
 
-                  AuthenticationProvider()
+                  AuthenticationHelper()
                       .signIn(email: email, password: password)
                       .then((result) {
                     if (result == null) {

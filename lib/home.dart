@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          AuthenticationProvider()
+          AuthenticationHelper()
               .signOut()
               .then((_) => Navigator.pushReplacement(
                     context,

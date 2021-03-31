@@ -227,7 +227,7 @@ class _SignupFormState extends State<SignupForm> {
 
                 _formKey.currentState.save();
 
-                AuthenticationProvider()
+                AuthenticationHelper()
                     .signUp(email: email, password: password)
                     .then((result) {
                   if (result == null) {
