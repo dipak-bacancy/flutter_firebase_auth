@@ -59,7 +59,6 @@ class Signup extends StatelessWidget {
     return Container(
       height: 80,
       width: 80,
-      // padding: EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(10)),
           color: Colors.blue),
@@ -108,7 +107,6 @@ class _SignupFormState extends State<SignupForm> {
         children: <Widget>[
           // email
           TextFormField(
-            // initialValue: 'Input text',
             decoration: InputDecoration(
                 prefixIcon: Icon(Icons.email_outlined),
                 labelText: 'Email',
@@ -211,20 +209,7 @@ class _SignupFormState extends State<SignupForm> {
           // signUP button
           RaisedButton(
             onPressed: () {
-              // Respond to button press
-
               if (_formKey.currentState.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
-
-                if (!agree) {
-                  Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                          'please agree terms & condition and privacy policy')));
-
-                  return false;
-                }
-
                 _formKey.currentState.save();
 
                 AuthenticationHelper()
