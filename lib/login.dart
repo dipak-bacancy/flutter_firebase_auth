@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_firebase_auth/authentication.dart';
 import 'package:flutter_firebase_auth/home.dart';
 import 'package:flutter_firebase_auth/signup.dart';
@@ -77,7 +76,7 @@ class Login extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  LoginForm({Key key}) : super(key: key);
+  LoginForm({Key? key}) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
@@ -86,8 +85,8 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String email;
-  String password;
+  String? email;
+  String? password;
 
   bool _obscureText = true;
 
@@ -111,7 +110,7 @@ class _LoginFormState extends State<LoginForm> {
               ),
             ),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -151,7 +150,7 @@ class _LoginFormState extends State<LoginForm> {
               password = val;
             },
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -163,22 +162,21 @@ class _LoginFormState extends State<LoginForm> {
           SizedBox(
             height: 54,
             width: 184,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 // Respond to button press
 
-                if (_formKey.currentState.validate()) {
-
-                  _formKey.currentState.save();
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
 
                   AuthenticationHelper()
-                      .signIn(email: email, password: password)
+                      .signIn(email: email!, password: password!)
                       .then((result) {
                     if (result == null) {
                       Navigator.pushReplacement(context,
                           MaterialPageRoute(builder: (context) => Home()));
                     } else {
-                      Scaffold.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(
                           result,
                           style: TextStyle(fontSize: 16),
@@ -188,10 +186,9 @@ class _LoginFormState extends State<LoginForm> {
                   });
                 }
               },
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(24.0))),
-              color: Colors.blue[400],
-              textColor: Colors.white,
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24.0)))),
               child: Text(
                 'Login',
                 style: TextStyle(fontSize: 24),

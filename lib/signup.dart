@@ -73,7 +73,7 @@ class Signup extends StatelessWidget {
 }
 
 class SignupForm extends StatefulWidget {
-  SignupForm({Key key}) : super(key: key);
+  SignupForm({Key? key}) : super(key: key);
 
   @override
   _SignupFormState createState() => _SignupFormState();
@@ -82,9 +82,9 @@ class SignupForm extends StatefulWidget {
 class _SignupFormState extends State<SignupForm> {
   final _formKey = GlobalKey<FormState>();
 
-  String email;
-  String password;
-  String name;
+  String? email;
+  String? password;
+  String? name;
   bool _obscureText = true;
 
   bool agree = false;
@@ -112,7 +112,7 @@ class _SignupFormState extends State<SignupForm> {
                 labelText: 'Email',
                 border: border),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -148,7 +148,7 @@ class _SignupFormState extends State<SignupForm> {
             },
             obscureText: true,
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter some text';
               }
               return null;
@@ -182,7 +182,7 @@ class _SignupFormState extends State<SignupForm> {
               name = val;
             },
             validator: (value) {
-              if (value.isEmpty) {
+              if (value!.isEmpty) {
                 return 'Please enter some name';
               }
               return null;
@@ -207,19 +207,19 @@ class _SignupFormState extends State<SignupForm> {
           ),
 
           // signUP button
-          RaisedButton(
+          ElevatedButton(
             onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
 
                 AuthenticationHelper()
-                    .signUp(email: email, password: password)
+                    .signUp(email: email!, password: password!)
                     .then((result) {
                   if (result == null) {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (context) => Home()));
                   } else {
-                    Scaffold.of(context).showSnackBar(SnackBar(
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: Text(
                         result,
                         style: TextStyle(fontSize: 16),
@@ -229,10 +229,9 @@ class _SignupFormState extends State<SignupForm> {
                 });
               }
             },
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            color: Colors.blue[400],
-            textColor: Colors.white,
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(24.0)))),
             child: Text('Sign Up'),
           ),
         ],
