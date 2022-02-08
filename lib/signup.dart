@@ -85,7 +85,7 @@ class _SignupFormState extends State<SignupForm> {
   String? email;
   String? password;
   String? name;
-  bool _obscureText = true;
+  bool _obscureText = false;
 
   bool agree = false;
 
@@ -146,7 +146,7 @@ class _SignupFormState extends State<SignupForm> {
             onSaved: (val) {
               password = val;
             },
-            obscureText: true,
+            obscureText: !_obscureText,
             validator: (value) {
               if (value!.isEmpty) {
                 return 'Please enter some text';
@@ -205,34 +205,41 @@ class _SignupFormState extends State<SignupForm> {
               ),
             ],
           ),
+          SizedBox(
+            height: 10,
+          ),
 
           // signUP button
-          ElevatedButton(
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
+          SizedBox(
+            height: 50,
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
 
-                AuthenticationHelper()
-                    .signUp(email: email!, password: password!)
-                    .then((result) {
-                  if (result == null) {
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => Home()));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(
-                        result,
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ));
-                  }
-                });
-              }
-            },
-            style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(24.0)))),
-            child: Text('Sign Up'),
+                  AuthenticationHelper()
+                      .signUp(email: email!, password: password!)
+                      .then((result) {
+                    if (result == null) {
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => Home()));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          result,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ));
+                    }
+                  });
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(24.0)))),
+              child: Text('Sign Up'),
+            ),
           ),
         ],
       ),
