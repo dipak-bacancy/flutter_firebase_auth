@@ -57,22 +57,7 @@ class Login extends StatelessWidget {
     );
   }
 
-  Container buildLogo() {
-    return Container(
-      height: 80,
-      width: 80,
-      // padding: EdgeInsets.only(top: 20),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          color: Colors.blue),
-      child: Center(
-        child: Text(
-          "T",
-          style: TextStyle(color: Colors.white, fontSize: 60.0),
-        ),
-      ),
-    );
-  }
+
 }
 
 class LoginForm extends StatefulWidget {
